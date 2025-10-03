@@ -2,7 +2,9 @@
 
 Development containers, based on Arch btw
 
-## Dockerfile
+## Contents
+
+### Dockerfile
 
 - Base packages
 - Create a user with sudo privilege
@@ -10,15 +12,15 @@ Development containers, based on Arch btw
 - Install some rubies and nodes
 - CMD runs in perpetuity
 
-## dotfiles
+### dotfiles
 
 Copied from my macos dotfiles and adapted, mainly by removing the brew stuff and fixing the nvm path.
 
-## Scripts
+### Scripts
 
-`make` (re)builds the container
-`start` starts. Not very useful by itself because it's called by the others
-`console` starts an interactive console
+- `make` (re)builds the container
+- `start` starts. Not very useful by itself because it's called by the others
+- `console` starts an interactive console
 
 In the DeeCide version `console` accepts a directory as argument and I have an alias:
 
@@ -26,9 +28,28 @@ In the DeeCide version `console` accepts a directory as argument and I have an a
 
 so if I am in `~/dev/deecide/paul` on macos, `ig_console` will take me inside the container in `/home/jole/dev/paul`.
 
-## docker-compose
+### docker-compose
 
 Used for accessories shared across dev environments.
 
+I made a custom MongoDB Dockerfile a while back and I'm not sur why. I think I wanted a lightweight image on ARM and it didn't exist.
+
 I know I could add the devcons here but I like my scripts 🤷🏻‍♂️
+
+## Usage
+
+Once you've adapted stuff :)
+
+#### Create and start the accessories
+
+    docker compose create
+    docker compose start
+    docker network list
+
+The network name depends on the current dir or the name given in docker-compose.yml. Make sure you have the right one in `make`.
+
+#### Build and start the container
+
+    ./make
+    ./console
 
