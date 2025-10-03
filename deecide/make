@@ -1,0 +1,20 @@
+#!/bin/bash -e
+
+echo "WILL DESTROY EXISTING CONTAINER"
+echo "Press enter"
+read
+
+docker stop deecide || true
+docker rm -f deecide || true
+docker build -t deecide .
+docker create --name=deecide \
+  --network=devcon_devcon \
+  -v ~/dev/deecide:/home/jole/dev \
+  -e REDIS_URL=redis://redis:6379 \
+  -e MONGO_COMPANY_REFERENCE_URI=mongodb://mongo:27017/company_references?retryWrites=true\&w=majority \
+  -e REDIS_HOST=redis \
+  -e MONGODB_URI=mongodb://mongo:27017 \
+  -p 443:443 \
+  deecide 
+
+./start

@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+./start
+
+# Get the directory argument if provided, otherwise default to home
+TARGET_DIR=${1:-/home/jole}
+
+docker exec -it -w "$TARGET_DIR" deecide /bin/zsh

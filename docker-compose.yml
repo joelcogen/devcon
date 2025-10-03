@@ -1,0 +1,59 @@
+# Usage:
+# Create containers:
+#   docker compose create
+# Pull the database for the first time:
+#   docker compose run back rake db:pull
+# Start the containers:
+#   docker compose start
+# Stop the containers:
+#   docker compose stop
+# Run tasks:
+#   docker compose exec back rake db:migrate
+#   docker compose exec front rake translations:sync
+# Logs: (by default all logs so always use -n)
+#   docker compose logs -f -n50
+#   docker compose logs -f -n50 paul
+
+#name: devcon
+
+networks:
+  devcon:
+    driver: bridge
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: postgres
+    hostname: postgres
+    environment:
+      POSTGRES_USER: dc
+      POSTGRES_PASSWORD: "dc!!!123"
+    networks:
+      - devcon
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    hostname: redis
+    ports:
+      - "127.0.0.1:6379:6379"
+    command: redis-server --save 60 1 --maxmemory 100mb --maxmemory-policy volatile-lru
+    networks:
+      - devcon
+    volumes:
+      - ./redisdata:/data
+  mongo:
+    build:
+      dockerfile: mongo.Dockerfile
+    container_name: mongo
+    hostname: mongo
+    networks:
+      - devcon
+    ports:
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - ./mongodata:/data/db
+
