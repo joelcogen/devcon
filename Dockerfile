@@ -3,7 +3,7 @@ FROM ogarcia/archlinux:devel
 ##### PACMAN
 
 RUN pacman -Syu --noconfirm
-RUN pacman -S --noconfirm zsh git vim rbenv libyaml openssh lsof python
+RUN pacman -S --noconfirm zsh git vim rbenv libyaml openssh lsof python docker-buildx
 RUN pacman -Scc --noconfirm
 
 ##### Create user
@@ -16,6 +16,13 @@ RUN usermod -aG wheel jole && \
 
 COPY dotfiles /home/jole/dotfiles
 RUN chown -R jole:jole /home/jole
+
+##### Docker binary and permission
+
+RUN curl -fsSL https://download.docker.com/linux/static/stable/aarch64/docker-28.4.0.tgz -o docker.tgz && \
+    tar -xzf docker.tgz --strip-components=1 -C /usr/local/bin docker/docker && \
+    rm docker.tgz
+RUN usermod -aG root jole
 
 ##### Switch to user
 
@@ -38,6 +45,9 @@ RUN ln -sf /home/jole/dotfiles/gitconfig /home/jole/.gitconfig
 
 RUN rbenv install 3.4.6
 RUN /bin/bash -c "source ~/.nvm/nvm.sh && nvm install 24 && npm install -g yarn"
+
+RUN rbenv global 3.4.6
+RUN eval "$(rbenv init -)" && gem install kamal
 
 ##### Opts
 

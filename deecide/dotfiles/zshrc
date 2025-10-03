@@ -68,3 +68,6 @@ load-nvmrc
 
 source ~/dotfiles/.npmrc
 
+# Add build key to SSH agent because Kamal fucks it up
+eval $(ssh-agent -s) > /dev/null
+ssh-add ~/dev/keys/build.pem 2>/dev/null
