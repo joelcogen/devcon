@@ -10,10 +10,8 @@ docker build -t perso .
 docker create --name=perso \
   --network=devcon_devcon \
   -v ~/dev:/home/jole/dev \
-  -e REDIS_URL=redis://redis:6379 \
-  -e REDIS_HOST=redis \
-  -e MONGODB_URI=mongodb://mongo:27017 \
-  -p 8080:80 \
-  perso 
+  -p 8080:8080 \
+  -p 3000:3000 \
+  perso
 
 ./start

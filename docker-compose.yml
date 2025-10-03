@@ -7,12 +7,6 @@
 #   docker compose start
 # Stop the containers:
 #   docker compose stop
-# Run tasks:
-#   docker compose exec back rake db:migrate
-#   docker compose exec front rake translations:sync
-# Logs: (by default all logs so always use -n)
-#   docker compose logs -f -n50
-#   docker compose logs -f -n50 paul
 
 #name: devcon
 
