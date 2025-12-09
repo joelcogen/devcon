@@ -16,6 +16,12 @@ docker create --name=deecide \
   -e REDIS_HOST=redis \
   -e MONGODB_URI=mongodb://mongo:27017 \
   -p 443:443 \
-  deecide 
+  -p 4001:4001 \
+  -p 4002:4002 \
+  -p 4003:4003 \
+  -p 4004:4004 \
+  -p 4005:4005 \
+  -p 4006:4006 \
+  deecide
 
 ./start

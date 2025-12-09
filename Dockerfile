@@ -3,7 +3,7 @@ FROM ogarcia/archlinux:devel
 ##### PACMAN
 
 RUN pacman -Syu --noconfirm
-RUN pacman -S --noconfirm zsh git vim rbenv libyaml openssh lsof python docker-buildx
+RUN pacman -S --noconfirm zsh git vim rbenv libyaml openssh lsof python python-pip uv docker-buildx
 RUN pacman -Scc --noconfirm
 
 ##### Create user

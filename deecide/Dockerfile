@@ -2,7 +2,7 @@ FROM ogarcia/archlinux:devel
 
 ##### PACMAN
 
-RUN pacman -Syu --noconfirm
+RUN pacman -Sy --noconfirm
 RUN pacman -S --noconfirm zsh git vim rbenv libyaml postgresql-libs openssh lsof docker-buildx
 RUN pacman -Scc --noconfirm
 
